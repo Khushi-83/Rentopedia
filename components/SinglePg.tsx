@@ -10,14 +10,14 @@ const SinglePg = ({
   city,
   price,
   description,
-  image,
+  imageURL,
 }: {
   name: string;
   location: string;
   city: string;
   price: string;
   description: string;
-  image: string;
+  imageURL: string;
 }) => {
   return (
     <div className="flex items-center gap-8">
@@ -26,7 +26,7 @@ const SinglePg = ({
         className="rounded-lg "
         height={300}
         width={300}
-        src="/img.jpg"
+        src={imageURL}
         style={{
           // aspectRatio: "100/100",
           objectFit: "cover",
@@ -42,6 +42,7 @@ const SinglePg = ({
         </div>
 
         <div className="font-semibold">{price}</div>
+        <p className="text-gray-600 dark:text-gray-300 text-sm">{description}</p>
         <Link
           target="_blank"
           href="https://wa.me/917978016118?text=Hello Sir/Ma'am, I need a pg. Can you help me with that?"
@@ -50,8 +51,6 @@ const SinglePg = ({
           <FaWhatsapp />
           <span>Direct message to owner</span>
         </Link>
-
-        <p>{description}</p>
       </div>
     </div>
   );

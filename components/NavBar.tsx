@@ -1,145 +1,87 @@
-import { LeafIcon } from "lucide-react";
+"use client";
+import { Building2, Menu, X } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useState } from "react";
 
 const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <header className="px-4 lg:px-6 top-0 sticky bg-white z-20">
-      <div className="container flex items-center justify-between h-14 px-4 sm:px-6">
+    <header className="px-4 lg:px-6 top-0 sticky bg-white/80 backdrop-blur-xl border-b border-blue-100/50 z-50 shadow-sm">
+      <div className="container mx-auto flex items-center justify-between h-16 px-4 sm:px-6">
         <Link
-          className="flex items-center justify-center text-black gap-2 font-bold text-xl"
+          className="flex items-center justify-center gap-2 font-bold text-xl group"
           href="/"
         >
-          <LeafIcon className="h-6 w-6 text-leaf-500" />
-          <span className="text-black">Rentopia</span>
+          <Building2 className="h-6 w-6 text-blue-500 group-hover:rotate-12 transition-transform duration-300" />
+          <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">EstateNex</span>
         </Link>
+
+        {/* Desktop Navigation */}
         <nav className="items-center hidden gap-8 lg:flex">
-          <Link
-            className="text-sm font-semibold hover:underline hover:text-leaf-600"
-            href="/"
-          >
-            Home
-          </Link>
-          <Link
-            className="text-sm font-semibold hover:underline hover:text-leaf-600"
-            href="/all-pg"
+          {[
+            ["Home", "/"],
+            ["All PG/Flats", "/all-pg"],
+            ["About", "/about"],
+            ["Contact", "/contact"]
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              className="text-sm font-medium text-gray-600 hover:text-blue-500 transition-colors relative after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-blue-500 after:transition-all hover:after:w-full"
+              href={href}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-4">
+          <Link 
+            href="/all-pg" 
+            className="hidden lg:inline-flex px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium text-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
           >
             All PG/Flats
           </Link>
-          <Link
-            className="text-sm font-semibold hover:underline hover:text-leaf-600"
-            href="about"
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
-            About
-          </Link>
-          <Link
-            className="text-sm font-semibold hover:underline hover:text-leaf-600"
-            href="/contact"
-          >
-            Contact
-          </Link>
-        </nav>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button className="text-sm border px-4 py-2 rounded-md bg-gray-800 text-white font-semibold hover:underline hover:text-leaf-600">
-              Sign Up / Login
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <Tabs defaultValue="account" className="w-[400px]">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="account">Sign In</TabsTrigger>
-                  <TabsTrigger value="password">Sign Up</TabsTrigger>
-                </TabsList>
-                <TabsContent value="account">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Account</CardTitle>
-                      <CardDescription>
-                        Make changes to your account here. Click save when
-                        you&apos;re done.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <div className="space-y-1">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="name" />
-                      </div>
-                      <div className="space-y-1">
-                        <Label htmlFor="username">Username</Label>
-                        <Input id="username" placeholder="user name" />
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button>Save changes</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
-                <TabsContent value="password">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Password</CardTitle>
-                      <CardDescription>
-                        Change your password here. After saving, you&apos;ll be
-                        logged out.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <div className="space-y-1">
-                        <Label htmlFor="current">Name</Label>
-                        <Input id="current" type="text" placeholder="name"/>
-                      </div>
-                      <div className="space-y-1">
-                        <Label htmlFor="new">Email</Label>
-                        <Input id="new" type="email" placeholder="email"/>
-                      </div>
-                      <div className="space-y-1">
-                        <Label htmlFor="new">Username</Label>
-                        <Input id="new" type="text" placeholder="username"/>
-                      </div>
-                      <div className="space-y-1">
-                        <Label htmlFor="new">Password</Label>
-                        <Input id="new" type="password" placeholder="password"/>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button>Save password</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <div className="lg:hidden absolute top-16 left-0 right-0 bg-white border-b border-blue-100/50">
+          <nav className="flex flex-col p-4 space-y-4">
+            {[
+              ["Home", "/"],
+              ["All PG/Flats", "/all-pg"],
+              ["About", "/about"],
+              ["Contact", "/contact"]
+            ].map(([label, href]) => (
+              <Link
+                key={href}
+                className="text-sm font-medium text-gray-600 hover:text-blue-500 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50"
+                href={href}
+                onClick={() => setIsOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            <Link 
+              href="/all-pg"
+              onClick={() => setIsOpen(false)}
+              className="px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium text-sm hover:shadow-lg text-center transition-all duration-300"
+            >
+              All PG/Flats
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

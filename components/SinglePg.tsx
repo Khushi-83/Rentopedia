@@ -41,11 +41,11 @@ const SinglePg = ({
           <LocateFixed /> <span>{city}</span>
         </div>
 
-        <div className="font-semibold">{price}</div>
+        <div className="font-semibold">₹{price}</div>
         <p className="text-gray-600 dark:text-gray-300 text-sm">{description}</p>
         <Link
           target="_blank"
-          href="https://wa.me/917978016118?text=Hello Sir/Ma'am, I need a pg. Can you help me with that?"
+          href={`https://wa.me/917978016118?text=Hello Sir/Ma'am, I am interested in ${name} with price ₹${price}. Can you please provide more details about this PG?`}
           className="font-semibold flex items-center gap-2 cursor-pointer text-green-500"
         >
           <FaWhatsapp />

@@ -11,7 +11,7 @@ import React from 'react'
 const page = () => {
   return (
     <div className='min-h-screen w-full flex flex-col bg-gray-50'>
-        <NavBar />
+        
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 my-auto bg-gray-100">
       <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-16">
         <div>
@@ -39,7 +39,7 @@ const page = () => {
               </div>
               <div className="ml-3">
                 <dt className="text-base font-medium text-gray-900 dark:text-gray-100">Email</dt>
-                <dd className="text-base text-gray-500 dark:text-gray-400">contact@rentopedia.com</dd>
+                <dd className="text-base text-gray-500 dark:text-gray-400">contact@EstateNex.com</dd>
               </div>
             </div>
             <div className="flex items-start">
@@ -142,7 +142,6 @@ const page = () => {
         </div>
       </div>
     </div>
-    <Footer />
     </div>
   )
 }

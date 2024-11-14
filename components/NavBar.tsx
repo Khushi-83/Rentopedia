@@ -32,6 +32,7 @@ const NavBar = () => {
             >
               {label}
             </Link>
+
           ))}
         </nav>
 
@@ -42,6 +43,14 @@ const NavBar = () => {
           >
             All PG/Flats
           </Link>
+          <Link 
+            href="/pg-owner/dashboard"
+            className="hidden lg:inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-blue-500 text-blue-500 font-medium text-sm hover:bg-blue-500 hover:text-white transition-all duration-300"
+          >
+            <Building2 className="h-4 w-4" />
+            Estate Holder
+          </Link>
+
 
           {/* Mobile Menu Button */}
           <button 

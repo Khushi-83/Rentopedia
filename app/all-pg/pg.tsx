@@ -382,7 +382,7 @@ const PropertyGrid = ({ filteredProperties }: { filteredProperties: any[] }) => 
             city={property.city}
             price={property.price}
             description={property.description}
-            imageURL={`https://laugh-consonant.pockethost.io/api/files/pg/${property.id}/${property.images}`}
+            imageURL={property.images ? `https://laugh-consonant.pockethost.io/api/files/pg/${property.id}/${property.images}` : "https://laugh-consonant.pockethost.io/api/files/kcumxj3ih2n2k9j/4dlg470th6rgvtl/img5_DwHOPFC7nZ.jpeg"}
           />
         </motion.div>
       ))}
@@ -414,6 +414,7 @@ const Pg = () => {
           .collection("pg")
           .getFullList({
             sort: "-created",
+            expand: 'images'
           });
         setPropertyData(records);
       } catch (error) {
@@ -428,18 +429,14 @@ const Pg = () => {
 
   const filterProperties = () => {
     return propertyData.filter((property: any) => {
-      if (!property.price || !property.title || !property.description || !property.address) {
-        return false;
-      }
-
       const price = typeof property.price === 'number' ? 
         property.price : 
-        parseInt(property.price.toString().replace(/[^\d]/g, ''));
+        parseInt(property.price?.toString().replace(/[^\d]/g, '') || '0');
         
       const matchesCity = selectedCity === 'All' || property.city?.toLowerCase() === selectedCity.toLowerCase();
-      const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           property.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           property.address.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = (property.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+                           (property.description?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+                           (property.address?.toLowerCase() || '').includes(searchTerm.toLowerCase());
       
       let matchesPrice = true;
       if (priceRange === '₹6000-₹7000') {

@@ -1,7 +1,7 @@
 "use client"
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-import { AccessibilityIcon, BadgeIcon, LinkedinIcon, TwitterIcon, UserIcon } from "lucide-react";
+import { AccessibilityIcon, BadgeIcon, GithubIcon, LinkedinIcon, TwitterIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -138,72 +138,81 @@ const page = () => {
 
             <motion.div 
               variants={fadeIn}
-              className="space-y-12"
+              className="space-y-16"
             >
-              <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                  Meet Our Amazing Team
+              <div className="text-center space-y-6">
+                <span className="text-primary font-medium tracking-wider uppercase">The Visionary</span>
+                <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
+                  <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                    Solo Creator,
+                  </span>
+                  <br />
+                  <span className="mt-2 block">Endless Possibilities</span>
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-                  Passionate individuals working together to revolutionize student housing
+                <p className="text-gray-600 dark:text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
+                  From concept to creation, this platform represents one person&apos;s vision to transform the student housing landscape
                 </p>
               </div>
 
               <motion.div 
                 variants={staggerChildren}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10"
+                className="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto"
               >
-                {[
-                  {
-                    name: "Megha Kaushal",
-                    role: "Co-Founder & CEO",
-                    image: "/megha.jpg"
-                  },
-                  {
-                    name: "Khushi Sinha",
-                    role: "Co-Founder & COO",
-                    image: "/khushi.jpg"
-                  },
-                  {
-                    name: "Riya Battu",
-                    role: "Co-Founder & CTO",
-                    image: "/riya.jpg"
-                  }
-                ].map((member, index) => (
-                  <motion.div
-                    key={index}
-                    variants={fadeIn}
-                    whileHover={{ y: -10 }}
-                    className="group relative"
-                  >
-                    <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-lg">
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-10" />
+                <motion.div
+                  variants={fadeIn}
+                  className="md:w-1/2"
+                >
+                  <div className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] mx-auto">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-2xl -rotate-6" />
+                    <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-2xl">
                       <Image
-                        alt={member.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        height="400"
-                        width="300"
-                        src={member.image}
+                        alt="Megha Kaushal"
+                        className="w-full h-full object-cover"
+                        height="500"
+                        width="400"
+                        src="/megha.jpg"
                       />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                        <h3 className="text-2xl font-bold text-white mb-1">
-                          {member.name}
-                        </h3>
-                        <p className="text-gray-300 text-sm mb-4">
-                          {member.role}
-                        </p>
-                        <div className="flex gap-4">
-                          <Link href="#" className="text-white hover:text-primary transition-colors">
-                            <LinkedinIcon className="w-6 h-6" />
-                          </Link>
-                          <Link href="#" className="text-white hover:text-primary transition-colors">
-                            <TwitterIcon className="w-6 h-6" />
-                          </Link>
-                        </div>
-                      </div>
                     </div>
-                  </motion.div>
-                ))}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  variants={fadeIn}
+                  className="md:w-1/2 space-y-8 text-center md:text-left"
+                >
+                  <div>
+                    <h3 className="text-3xl font-bold mb-2">Megha Kaushal</h3>
+                    <p className="text-primary font-medium">Founder & Developer</p>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                      As a student who experienced the challenges of finding suitable accommodation firsthand, 
+                      I embarked on a mission to create a solution that would make a real difference.
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                      Every line of code, every design decision, and every feature has been carefully crafted 
+                      to ensure students can find their perfect living space with ease and confidence.
+                    </p>
+                  </div>
+
+                  <div className="flex gap-6 justify-center md:justify-start">
+                    <Link 
+                      href="https://www.linkedin.com/in/meghakaushal/"
+                      target="_blank"
+                      className="bg-primary/10 hover:bg-primary/20 text-primary p-3 rounded-full transition-colors"
+                    >
+                      <LinkedinIcon className="w-6 h-6" />
+                    </Link>
+                    <Link 
+                      href="https://github.com/MeghaKaushal19"
+                      target="_blank"
+                      className="bg-primary/10 hover:bg-primary/20 text-primary p-3 rounded-full transition-colors"
+                    >
+                      <GithubIcon className="w-6 h-6" />
+                    </Link>
+                  </div>
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.section>

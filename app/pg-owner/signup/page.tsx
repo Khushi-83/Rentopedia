@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,6 +21,14 @@ const SignupPage = () => {
     passwordConfirm: '',
     name: ''
   })
+
+  useEffect(() => {
+    const pb = new PocketBase('https://laugh-consonant.pockethost.io')
+    const authData = pb.authStore.model
+    if (authData) {
+      router.push('/pg-owner/dashboard')
+    }
+  }, [])
 
   const validateForm = () => {
     if (formData.password !== formData.passwordConfirm) {

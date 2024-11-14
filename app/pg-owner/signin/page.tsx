@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Mail, Lock, AlertCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PocketBase from 'pocketbase'
 
 const SigninPage = () => {
@@ -20,6 +20,13 @@ const SigninPage = () => {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const authData = pb.authStore.model
+    if (authData) {
+      router.push('/pg-owner/dashboard')
+    }
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError('')
@@ -101,6 +108,13 @@ const SigninPage = () => {
             <Button type="submit" className="w-full bg-green-600 hover:bg-green-500" disabled={loading}>
               {loading ? 'Signing In...' : 'Sign In'}
             </Button>
+
+            <p className="text-center text-sm text-gray-600 mt-4">
+              Don&apos;t have an account?{' '}
+              <a href="/pg-owner/signup" className="text-green-600 hover:underline">
+                Sign up
+              </a>
+            </p>
           </form>
         </CardContent>
       </Card>

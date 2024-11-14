@@ -37,6 +37,7 @@ const PGDashboard = () => {
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   
@@ -143,6 +144,7 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 };
 
   const handleCreate = async () => {
+    setLoading(true);
     try {
       const authData = pb.authStore.model;
       if (!authData) return;
@@ -163,10 +165,13 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     } catch (error) {
       console.error('Error creating listing:', error);
       alert('Error creating listing. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUpdate = async () => {
+    setLoading(true);
     try {
       if (!selectedListing?.id) return;
 
@@ -188,18 +193,23 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     } catch (error) {
       console.error('Error updating listing:', error);
       alert('Error updating listing. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this listing?')) return;
     
+    setLoading(true);
     try {
       await pb.collection('pg').delete(id);
       await fetchListings();
     } catch (error) {
       console.error('Error deleting listing:', error);
       alert('Error deleting listing. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -371,7 +381,9 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             </button>
           </div>
           {children}
-          <Button onClick={onSubmit} className="w-full mt-4">{title}</Button>
+          <Button onClick={onSubmit} className="w-full mt-4" disabled={loading}>
+            {loading ? 'Loading...' : title}
+          </Button>
         </div>
       </div>
     );
@@ -416,11 +428,15 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredListings.map((listing) => (
-          <ListingCard key={listing.id} listing={listing} />
-        ))}
-      </div>
+      {filteredListings.length === 0 ? (
+        <p className="text-center text-gray-500">No properties added yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredListings.map((listing) => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </div>
+      )}
 
       <CustomDialog
         isOpen={isCreateOpen}
